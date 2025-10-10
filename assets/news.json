@@ -1,0 +1,18 @@
+[
+{
+"id": 1,
+"title": "Bienvenidos a KameHouse Laguna",
+"summary": "Lanzamos nuestra app para mantenerte al día con noticias, eventos y stock.",
+"date": "2025-08-26T10:00:00Z",
+"image": "",
+"tags": ["comunicado"]
+},
+{
+"id": 2,
+"title": "Transmisión en vivo hoy 8 PM",
+"summary": "Acompáñanos para ver novedades de mercancía y responder preguntas.",
+"date": "2025-08-27T01:00:00Z",
+"image": "",
+"tags": ["en-vivo", "eventos"]
+}
+]

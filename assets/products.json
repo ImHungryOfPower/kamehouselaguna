@@ -1,0 +1,5 @@
+[
+{ "id": 1, "name": "Figura Coleccionable A", "stock": 5, "price": 1299.00 },
+{ "id": 2, "name": "Póster Edición Limitada", "stock": 0, "price": 249.50 },
+{ "id": 3, "name": "Camisa Talla M", "stock": 12, "price": 399.00 }
+]
