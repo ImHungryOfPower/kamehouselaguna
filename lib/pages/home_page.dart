@@ -26,19 +26,17 @@ class _HomePageState extends State<HomePage> {
     ];
 
 
-    final _titles = const [
-        'Noticias',
-        'Inventario',
-        'En vivo',
-        'Mensajes',
-    ];
-
-
     @override
     Widget build(BuildContext context) {
+        const titles = [
+            'Noticias',
+            'Inventario',
+            'Facebook',
+            'Mensajes',
+        ];
         return Scaffold(
             appBar: AppBar(
-                title: Text(_titles[_index]),
+                title: Text(titles[_index]),
             ),
             body: _pages[_index],
             bottomNavigationBar: NavigationBar(
@@ -47,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 destinations: const [
                     NavigationDestination(icon: Icon(Icons.article_outlined), selectedIcon: Icon(Icons.article), label: 'Noticias'),
                     NavigationDestination(icon: Icon(Icons.storefront_outlined), selectedIcon: Icon(Icons.storefront), label: 'Inventario'),
-                    NavigationDestination(icon: Icon(Icons.wifi_tethering), selectedIcon: Icon(Icons.wifi_tethering), label: 'En vivo'),
+                    NavigationDestination(icon: Icon(Icons.facebook), selectedIcon: Icon(Icons.facebook), label: 'Facebook'),
                     NavigationDestination(icon: Icon(Icons.message_outlined), selectedIcon: Icon(Icons.message), label: 'Mensajes'),
                 ],
             ),

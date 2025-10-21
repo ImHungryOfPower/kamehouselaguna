@@ -182,12 +182,14 @@ class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin
             children: const [
               Text('📱', style: TextStyle(fontSize: 18)),
               SizedBox(width: 8),
-              Text(
-                '¿Qué encontrarás en nuestra página?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF2D3748),
+              Expanded(
+                child: Text(
+                  '¿Qué encontrarás en nuestra página?',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF2D3748),
+                  ),
                 ),
               ),
             ],
