@@ -15,17 +15,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1400),
       vsync: this,
     );
 
-    // Create staggered animations for each card
+    // Create staggered animations for each card with elastic bounce
     _cardAnimations = List.generate(4, (index) {
-      final start = index * 0.1;
-      final end = start + 0.5;
+      final start = (index * 0.1).clamp(0.0, 1.0);
+      final end = (start + 0.5).clamp(0.0, 1.0);
       return CurvedAnimation(
         parent: _animationController,
-        curve: Interval(start, end, curve: Curves.easeOut),
+        curve: Interval(start, end, curve: Curves.elasticOut),
       );
     });
 
@@ -45,21 +45,28 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFFF8F9FA), Color(0xFFFFFFFF)],
+          colors: [Color(0xFFF8F9FA), Color(0xFFFFFFFF), Color(0xFFF0F4F8)],
         ),
       ),
       child: SafeArea(
         child: Column(
           children: [
-            // Header with gradient
+            // Header with enhanced gradient and shadow
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFFFF6B35), Color(0xFF004E89)],
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  begin: Alignment(-1.2, -1.2),
+                  end: Alignment(1.2, 1.2),
+                  colors: [Color(0xFFFF6B35), Color(0xFFFF8C42), Color(0xFF004E89), Color(0xFF003366)],
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFFFF6B35).withOpacity(0.4),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,59 +74,103 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'KameHouse Laguna',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0.0, end: 1.0),
+                        duration: const Duration(milliseconds: 800),
+                        curve: Curves.easeOutBack,
+                        builder: (context, value, child) {
+                          return Opacity(
+                            opacity: value,
+                            child: Transform.translate(
+                              offset: Offset(-20 * (1 - value), 0),
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'KameHouse Laguna',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.8,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black26,
+                                blurRadius: 8,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Stack(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(8),
+                      TweenAnimationBuilder<double>(
+                        tween: Tween(begin: 0.0, end: 1.0),
+                        duration: const Duration(milliseconds: 1000),
+                        curve: Curves.elasticOut,
+                        builder: (context, value, child) {
+                          return Transform.scale(
+                            scale: value,
+                            child: Transform.rotate(
+                              angle: (1 - value) * 6.28,
+                              child: child,
                             ),
-                            child: const Icon(
-                              Icons.notifications_outlined,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
-                          Positioned(
-                            right: 4,
-                            top: 4,
-                            child: Container(
-                              width: 10,
-                              height: 10,
-                              decoration: const BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ],
+                          );
+                        },
+                        child: _buildNotificationBell(),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    '¡Bienvenido otaku!',
-                    style: TextStyle(
-                      color: Color(0xFFFFD700),
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
+                  TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0.0, end: 1.0),
+                    duration: const Duration(milliseconds: 1200),
+                    curve: Curves.easeOut,
+                    builder: (context, value, child) {
+                      return Opacity(
+                        opacity: value,
+                        child: Transform.translate(
+                          offset: Offset(0, 20 * (1 - value)),
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      '¡Bienvenido otaku!',
+                      style: TextStyle(
+                        color: Color(0xFFFFD700),
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.0,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black38,
+                            blurRadius: 10,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    'Tu colección de ensueño te está esperando',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                  const SizedBox(height: 6),
+                  TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0.0, end: 1.0),
+                    duration: const Duration(milliseconds: 1400),
+                    curve: Curves.easeOut,
+                    builder: (context, value, child) {
+                      return Opacity(
+                        opacity: value,
+                        child: child,
+                      );
+                    },
+                    child: const Text(
+                      'Tu colección de ensueño te está esperando',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        letterSpacing: 0.4,
+                        height: 1.3,
+                      ),
                     ),
                   ),
                 ],
@@ -131,8 +182,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 padding: const EdgeInsets.all(20.0),
                 child: GridView.count(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 18,
+                  mainAxisSpacing: 18,
                   children: [
                     _buildAnimatedCard(
                       animation: _cardAnimations[0],
@@ -141,11 +192,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF6A0DAD), Color(0xFF4B0082)],
+                        colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9), Color(0xFF5B21B6)],
                       ),
-                      onTap: () {
-                        // Navigate to catalog
-                      },
+                      onTap: () {},
                     ),
                     _buildAnimatedCard(
                       animation: _cardAnimations[1],
@@ -154,11 +203,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFFFF9800), Color(0xFFFF6B35)],
+                        colors: [Color(0xFFFB923C), Color(0xFFF97316), Color(0xFFEA580C)],
                       ),
-                      onTap: () {
-                        // Navigate to news
-                      },
+                      onTap: () {},
                     ),
                     _buildAnimatedCard(
                       animation: _cardAnimations[2],
@@ -167,11 +214,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF1976D2), Color(0xFF1565C0)],
+                        colors: [Color(0xFF3B82F6), Color(0xFF2563EB), Color(0xFF1D4ED8)],
                       ),
-                      onTap: () {
-                        // Navigate to social
-                      },
+                      onTap: () {},
                     ),
                     _buildAnimatedCard(
                       animation: _cardAnimations[3],
@@ -180,11 +225,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF607D8B), Color(0xFF455A64)],
+                        colors: [Color(0xFF64748B), Color(0xFF475569), Color(0xFF334155)],
                       ),
-                      onTap: () {
-                        // Navigate to settings
-                      },
+                      onTap: () {},
                     ),
                   ],
                 ),
@@ -193,6 +236,62 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildNotificationBell() {
+    return Stack(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.25),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.notifications_outlined,
+            color: Colors.white,
+            size: 24,
+          ),
+        ),
+        Positioned(
+          right: 6,
+          top: 6,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.6, end: 1.3),
+            duration: const Duration(milliseconds: 1000),
+            curve: Curves.easeInOut,
+            builder: (context, value, child) {
+              return Transform.scale(
+                scale: value,
+                child: child,
+              );
+            },
+            child: Container(
+              width: 11,
+              height: 11,
+              decoration: BoxDecoration(
+                color: const Color(0xFFEF4444),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFFEF4444).withOpacity(0.6),
+                    blurRadius: 8,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -207,23 +306,33 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       animation: animation,
       builder: (context, child) {
         return Transform.translate(
-          offset: Offset(0, 20 * (1 - animation.value)),
+          offset: Offset(0, 50 * (1 - animation.value)),
           child: Opacity(
             opacity: animation.value,
-            child: child,
+            child: Transform.scale(
+              scale: 0.7 + (0.3 * animation.value),
+              child: child,
+            ),
           ),
         );
       },
       child: Material(
         color: Colors.transparent,
+        elevation: 0,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(24),
           child: Container(
             decoration: BoxDecoration(
               gradient: gradient,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(24),
               boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                  spreadRadius: -2,
+                ),
                 BoxShadow(
                   color: Colors.black.withOpacity(0.15),
                   blurRadius: 10,
@@ -234,25 +343,72 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Icon(
-                    icon,
-                    size: 48,
-                    color: Colors.white,
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.elasticOut,
+                  builder: (context, value, child) {
+                    return Transform.scale(
+                      scale: value,
+                      child: Transform.rotate(
+                        angle: (1 - value) * 1.5,
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(18),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(22),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 12,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      icon,
+                      size: 52,
+                      color: Colors.white,
+                      shadows: const [
+                        Shadow(
+                          color: Colors.black26,
+                          blurRadius: 8,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                const SizedBox(height: 14),
+                TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeOut,
+                  builder: (context, value, child) {
+                    return Opacity(
+                      opacity: value,
+                      child: child,
+                    );
+                  },
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 0.6,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black38,
+                          blurRadius: 6,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -263,4 +419,3 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 }
-

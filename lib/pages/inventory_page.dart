@@ -14,9 +14,25 @@ class InventoryPage extends ConsumerStatefulWidget {
 }
 
 
-class _InventoryPageState extends ConsumerState<InventoryPage> {
+class _InventoryPageState extends ConsumerState<InventoryPage> with SingleTickerProviderStateMixin {
     String _filter = 'in_stock'; // 'in_stock' | 'upcoming'
+    late AnimationController _animController;
 
+    @override
+    void initState() {
+        super.initState();
+        _animController = AnimationController(
+            duration: const Duration(milliseconds: 1000),
+            vsync: this,
+        );
+        _animController.forward();
+    }
+
+    @override
+    void dispose() {
+        _animController.dispose();
+        super.dispose();
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -29,25 +45,41 @@ class _InventoryPageState extends ConsumerState<InventoryPage> {
                     ? items.where((p) => p.stock > 0).toList()
                     : items.where((p) => p.stock == 0).toList();
 
-                return Column(
-                    children: [
-                        const SizedBox(height: 8),
-                        _CatalogHeaderBar(),
-                        const SizedBox(height: 12),
-                        _FilterChips(
-                            filter: _filter,
-                            onChanged: (f) => setState(() => _filter = f),
-                        ),
-                        const SizedBox(height: 8),
-                        Expanded(
-                            child: ListView.separated(
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                itemCount: filtered.length,
-                                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                                itemBuilder: (_, i) => _CatalogCard(p: filtered[i]),
-                            ),
-                        ),
-                    ],
+                return AnimatedBuilder(
+                    animation: _animController,
+                    builder: (context, child) {
+                        return Column(
+                            children: [
+                                const SizedBox(height: 8),
+                                _CatalogHeaderBar(animation: _animController),
+                                const SizedBox(height: 12),
+                                _FilterChips(
+                                    filter: _filter,
+                                    onChanged: (f) => setState(() => _filter = f),
+                                    animation: _animController,
+                                ),
+                                const SizedBox(height: 8),
+                                Expanded(
+                                    child: ListView.separated(
+                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                        itemCount: filtered.length,
+                                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                                        itemBuilder: (_, i) {
+                                            final animation = CurvedAnimation(
+                                                parent: _animController,
+                                                curve: Interval(
+                                                    i * 0.1 > 1 ? 1 : i * 0.1,
+                                                    (i * 0.1 + 0.5) > 1 ? 1 : i * 0.1 + 0.5,
+                                                    curve: Curves.easeOutBack,
+                                                ),
+                                            );
+                                            return _CatalogCard(p: filtered[i], animation: animation);
+                                        },
+                                    ),
+                                ),
+                            ],
+                        );
+                    },
                 );
             },
             loading: () => const Center(child: CircularProgressIndicator()),
@@ -58,9 +90,23 @@ class _InventoryPageState extends ConsumerState<InventoryPage> {
 
 
 class _CatalogHeaderBar extends StatelessWidget {
+    final Animation<double> animation;
+    const _CatalogHeaderBar({required this.animation});
+
     @override
     Widget build(BuildContext context) {
-        return Container(
+        return AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) {
+                return Opacity(
+                    opacity: animation.value,
+                    child: Transform.translate(
+                        offset: Offset(0, -30 * (1 - animation.value)),
+                        child: child,
+                    ),
+                );
+            },
+            child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             decoration: const BoxDecoration(
@@ -87,6 +133,7 @@ class _CatalogHeaderBar extends StatelessWidget {
                     ),
                 ],
             ),
+        ),
         );
     }
 }
@@ -114,14 +161,26 @@ class _HeaderIcon extends StatelessWidget {
 class _FilterChips extends StatelessWidget {
     final String filter;
     final ValueChanged<String> onChanged;
-    const _FilterChips({required this.filter, required this.onChanged});
+    final Animation<double> animation;
+    const _FilterChips({required this.filter, required this.onChanged, required this.animation});
 
 
     @override
     Widget build(BuildContext context) {
-        return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
+        return AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) {
+                return Opacity(
+                    opacity: animation.value,
+                    child: Transform.scale(
+                        scale: 0.8 + (0.2 * animation.value),
+                        child: child,
+                    ),
+                );
+            },
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
                 children: [
                     _ChoicePill(
                         label: 'En Stock',
@@ -137,6 +196,7 @@ class _FilterChips extends StatelessWidget {
                         onTap: () => onChanged('upcoming'),
                     ),
                 ],
+            ),
             ),
         );
     }
@@ -177,13 +237,28 @@ class _ChoicePill extends StatelessWidget {
 
 class _CatalogCard extends StatelessWidget {
     final Product p;
-    const _CatalogCard({required this.p});
+    final Animation<double> animation;
+    const _CatalogCard({required this.p, required this.animation});
 
 
     @override
     Widget build(BuildContext context) {
         final inStock = p.stock > 0;
-        return InkWell(
+        return AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) {
+                return Opacity(
+                    opacity: animation.value,
+                    child: Transform.translate(
+                        offset: Offset(50 * (1 - animation.value), 0),
+                        child: Transform.scale(
+                            scale: 0.9 + (0.1 * animation.value),
+                            child: child,
+                        ),
+                    ),
+                );
+            },
+            child: InkWell(
             onTap: () {
                 final emoji = _emojiFor(p.name);
                 Navigator.of(context).push(
@@ -244,8 +319,9 @@ class _CatalogCard extends StatelessWidget {
                         ),
                     ],
                 ),
+                ),
             ),
-        ),
+            ),
         );
     }
 
