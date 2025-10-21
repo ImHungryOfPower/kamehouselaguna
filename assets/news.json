@@ -1,18 +1,50 @@
 [
-{
-"id": 1,
-"title": "Bienvenidos a KameHouse Laguna",
-"summary": "Lanzamos nuestra app para mantenerte al día con noticias, eventos y stock.",
-"date": "2025-08-26T10:00:00Z",
-"image": "",
-"tags": ["comunicado"]
-},
-{
-"id": 2,
-"title": "Transmisión en vivo hoy 8 PM",
-"summary": "Acompáñanos para ver novedades de mercancía y responder preguntas.",
-"date": "2025-08-27T01:00:00Z",
-"image": "",
-"tags": ["en-vivo", "eventos"]
-}
+  {
+    "id": 1,
+    "title": "Nueva Figura Disponible",
+    "summary": "¡Increíble! Acabamos de recibir la figura de Goku Ultra Instinct de edición premium. Incluye efectos de aura, base especial y certificado de autenticidad. ¡Solo 30 unidades disponibles!",
+    "date": "2025-10-21T16:55:00Z",
+    "image": "",
+    "tags": ["figura", "descuento"]
+  },
+  {
+    "id": 2,
+    "title": "Piccolo llegará pronto",
+    "summary": "La figura de Piccolo Namekuseijin está en tránsito desde Japón. Llegará el miércoles con accesorios exclusivos como la capa y el turbante. ¡Prepárate para la batalla!",
+    "date": "2025-10-21T08:00:00Z",
+    "image": "",
+    "tags": ["llegará", "evento"]
+  },
+  {
+    "id": 3,
+    "title": "Descuento especial en Trunks",
+    "summary": "Oferta relámpago: 25% de descuento en todas las figuras de Trunks del Futuro. Incluye la versión Super Saiyajin y la versión con espada. ¡Válido solo hasta mañana!",
+    "date": "2025-10-19T10:00:00Z",
+    "image": "",
+    "tags": ["descuento", "oferta"]
+  },
+  {
+    "id": 4,
+    "title": "Evento especial este fin de semana",
+    "summary": "¡No te pierdas nuestro evento especial de Dragon Ball! Habrá sorteos, descuentos exclusivos y la presentación de nuevas figuras. ¡Te esperamos en la tienda!",
+    "date": "2025-10-18T12:00:00Z",
+    "image": "",
+    "tags": ["evento"]
+  },
+  {
+    "id": 5,
+    "title": "Transmisión en vivo hoy 8 PM",
+    "summary": "Acompáñanos para ver novedades de mercancía exclusiva de Dragon Ball Super y responder preguntas en directo. ¡Habrá sorpresas!",
+    "date": "2025-10-21T01:00:00Z",
+    "image": "",
+    "tags": ["en-vivo", "evento"]
+  },
+  {
+    "id": 6,
+    "title": "Nueva colección One Piece",
+    "summary": "¡Llegó la nueva colección de figuras de One Piece! Incluye Luffy Gear 5, Zoro con sus tres espadas y Nami con su clima-tact. ¡Edición limitada!",
+    "date": "2025-10-14T10:00:00Z",
+    "image": "",
+    "tags": ["figura", "llegará"]
+  }
 ]

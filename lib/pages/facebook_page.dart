@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LivePage extends StatefulWidget {
-  const LivePage({super.key});
+class FacebookPage extends StatefulWidget {
+  const FacebookPage({super.key});
 
   @override
-  State<LivePage> createState() => _LivePageState();
+  State<FacebookPage> createState() => _FacebookPageState();
 }
 
-class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin {
+class _FacebookPageState extends State<FacebookPage> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late List<Animation<double>> _itemAnimations;
 
@@ -20,6 +20,7 @@ class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin
       vsync: this,
     );
 
+    // Create staggered animations for each item
     _itemAnimations = List.generate(4, (index) {
       final start = index * 0.1;
       final end = start + 0.5;
@@ -40,19 +41,102 @@ class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFFF8F9FA),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      body: SafeArea(
         child: Column(
           children: [
-            _buildFacebookHeader(),
-            const SizedBox(height: 30),
-            _buildFacebookButton(),
-            const SizedBox(height: 30),
-            _buildContentSection(),
-            const SizedBox(height: 20),
-            _buildStatsSection(),
+            // Header with Facebook gradient
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFF4267B2), Color(0xFF365899)],
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      const Text(
+                        'Facebook',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Main content
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    // Facebook header section
+                    _buildFacebookHeader(),
+                    const SizedBox(height: 30),
+                    // Facebook button
+                    _buildFacebookButton(),
+                    const SizedBox(height: 30),
+                    // Content section
+                    _buildContentSection(),
+                    const SizedBox(height: 20),
+                    // Stats section
+                    _buildStatsSection(),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -62,7 +146,7 @@ class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin
   Widget _buildFacebookHeader() {
     return Column(
       children: [
-        // Logo con leve animación de pulso
+        // Facebook logo with pulse animation
         TweenAnimationBuilder<double>(
           tween: Tween(begin: 1.0, end: 1.05),
           duration: const Duration(seconds: 2),
@@ -179,10 +263,10 @@ class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: const [
-              Text('📱', style: TextStyle(fontSize: 18)),
-              SizedBox(width: 8),
-              Text(
+            children: [
+              const Text('📱', style: TextStyle(fontSize: 18)),
+              const SizedBox(width: 8),
+              const Text(
                 '¿Qué encontrarás en nuestra página?',
                 style: TextStyle(
                   fontSize: 18,
@@ -222,7 +306,7 @@ class _LivePageState extends State<LivePage> with SingleTickerProviderStateMixin
     ];
 
     final item = items[index];
-
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),

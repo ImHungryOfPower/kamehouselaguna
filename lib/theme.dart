@@ -23,5 +23,17 @@ class AppTheme {
             borderRadius: BorderRadius.circular(16),
           ),
         ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+            shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+            padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 14, vertical: 10)),
+            textStyle: const WidgetStatePropertyAll(TextStyle(fontWeight: FontWeight.w700)),
+          ),
+        ),
+        chipTheme: const ChipThemeData(
+          labelStyle: TextStyle(fontWeight: FontWeight.w600),
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+          side: BorderSide(color: Color(0xFFE2E8F0)),
+        ),
       );
 }
