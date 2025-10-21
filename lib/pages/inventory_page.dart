@@ -68,8 +68,8 @@ class _InventoryPageState extends ConsumerState<InventoryPage> with SingleTicker
                                             final animation = CurvedAnimation(
                                                 parent: _animController,
                                                 curve: Interval(
-                                                    i * 0.1 > 1 ? 1 : i * 0.1,
-                                                    (i * 0.1 + 0.5) > 1 ? 1 : i * 0.1 + 0.5,
+                                                    (i * 0.08).clamp(0.0, 0.8),
+                                                    (i * 0.08 + 0.4).clamp(0.0, 1.0),
                                                     curve: Curves.easeOutBack,
                                                 ),
                                             );

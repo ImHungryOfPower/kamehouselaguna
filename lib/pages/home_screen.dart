@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final Function(int) onNavigate;
+  const HomeScreen({super.key, required this.onNavigate});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -117,7 +118,19 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             ),
                           );
                         },
-                        child: _buildNotificationBell(),
+                        child: GestureDetector(
+                          onTap: () {
+                            // Show messages snackbar since messages page was removed
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('No hay mensajes nuevos'),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Color(0xFF4267B2),
+                              ),
+                            );
+                          },
+                          child: _buildNotificationBell(),
+                        ),
                       ),
                     ],
                   ),
@@ -194,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         end: Alignment.bottomRight,
                         colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9), Color(0xFF5B21B6)],
                       ),
-                      onTap: () {},
+                      onTap: () => widget.onNavigate(2), // Navigate to Inventario
                     ),
                     _buildAnimatedCard(
                       animation: _cardAnimations[1],
@@ -205,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         end: Alignment.bottomRight,
                         colors: [Color(0xFFFB923C), Color(0xFFF97316), Color(0xFFEA580C)],
                       ),
-                      onTap: () {},
+                      onTap: () => widget.onNavigate(1), // Navigate to Noticias
                     ),
                     _buildAnimatedCard(
                       animation: _cardAnimations[2],
@@ -216,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         end: Alignment.bottomRight,
                         colors: [Color(0xFF3B82F6), Color(0xFF2563EB), Color(0xFF1D4ED8)],
                       ),
-                      onTap: () {},
+                      onTap: () => widget.onNavigate(3), // Navigate to Facebook
                     ),
                     _buildAnimatedCard(
                       animation: _cardAnimations[3],
@@ -227,7 +240,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         end: Alignment.bottomRight,
                         colors: [Color(0xFF64748B), Color(0xFF475569), Color(0xFF334155)],
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        // No navigation for Ajustes
+                      },
                     ),
                   ],
                 ),

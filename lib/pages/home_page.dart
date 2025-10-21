@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             'Facebook',
         ];
         final pages = [
-            const HomeScreen(),
+            HomeScreen(onNavigate: (index) => setState(() => _index = index)),
             const NewsPage(),
             const InventoryPage(),
             const LivePage(),
