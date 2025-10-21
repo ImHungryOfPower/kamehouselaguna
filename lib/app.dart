@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
+import 'pages/splash_page.dart';
 import 'pages/home_page.dart';
 
 class KameHouseApp extends StatelessWidget {
@@ -11,7 +12,10 @@ class KameHouseApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'KameHouse Laguna',
       theme: AppTheme.light,
-      home: const HomePage(),
+      home: const SplashPage(),
+      routes: {
+        '/home': (context) => const HomePage(),
+      },
     );
   }
 }
