@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers.dart';
 import '../models/product.dart';
+import 'product_detail_page.dart';
 
 
 class InventoryPage extends ConsumerStatefulWidget {
@@ -182,7 +183,16 @@ class _CatalogCard extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         final inStock = p.stock > 0;
-        return Container(
+        return InkWell(
+            onTap: () {
+                final emoji = _emojiFor(p.name);
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (_) => ProductDetailPage(product: p, emoji: emoji),
+                    ),
+                );
+            },
+            child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -235,6 +245,7 @@ class _CatalogCard extends StatelessWidget {
                     ],
                 ),
             ),
+        ),
         );
     }
 
