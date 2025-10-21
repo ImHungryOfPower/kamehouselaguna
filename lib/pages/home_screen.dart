@@ -46,26 +46,40 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFFF8F9FA), Color(0xFFFFFFFF), Color(0xFFF0F4F8)],
+          colors: [
+            Color(0xFFFFE5B4), // Naranja crema claro
+            Color(0xFFFFD699), // Naranja pastel
+            Color(0xFFFFE5B4), // Naranja crema claro
+          ],
         ),
       ),
       child: SafeArea(
         child: Column(
           children: [
-            // Header with enhanced gradient and shadow
+            // Header with Dragon Ball Z gradient
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  begin: Alignment(-1.2, -1.2),
-                  end: Alignment(1.2, 1.2),
-                  colors: [Color(0xFFFF6B35), Color(0xFFFF8C42), Color(0xFF004E89), Color(0xFF003366)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFFFF6B35), // Naranja Dragon Ball
+                    Color(0xFFFF8C42), // Naranja claro
+                    Color(0xFFFFB347), // Naranja dorado
+                    Color(0xFFFFD700), // Dorado Super Saiyan
+                  ],
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFFF6B35).withOpacity(0.4),
-                    blurRadius: 16,
-                    offset: const Offset(0, 6),
+                    color: const Color(0xFFFF6B35).withOpacity(0.5),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                  BoxShadow(
+                    color: const Color(0xFFFFD700).withOpacity(0.3),
+                    blurRadius: 30,
+                    offset: const Offset(0, 10),
                   ),
                 ],
               ),
@@ -205,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9), Color(0xFF5B21B6)],
+                        colors: [Color(0xFFFF6B35), Color(0xFFFF8C42), Color(0xFFFF9E57)], // Naranja DBZ
                       ),
                       onTap: () => widget.onNavigate(2), // Navigate to Inventario
                     ),
@@ -216,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFFFB923C), Color(0xFFF97316), Color(0xFFEA580C)],
+                        colors: [Color(0xFFFFD700), Color(0xFFFFB347), Color(0xFFFFA500)], // Dorado Super Saiyan
                       ),
                       onTap: () => widget.onNavigate(1), // Navigate to Noticias
                     ),
@@ -227,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF3B82F6), Color(0xFF2563EB), Color(0xFF1D4ED8)],
+                        colors: [Color(0xFF0EA5E9), Color(0xFF0284C7), Color(0xFF0369A1)], // Azul Ki
                       ),
                       onTap: () => widget.onNavigate(3), // Navigate to Facebook
                     ),
@@ -238,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF64748B), Color(0xFF475569), Color(0xFF334155)],
+                        colors: [Color(0xFFEF4444), Color(0xFFDC2626), Color(0xFFB91C1C)], // Rojo Kaio-ken
                       ),
                       onTap: () {
                         // No navigation for Ajustes

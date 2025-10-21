@@ -48,7 +48,18 @@ class _InventoryPageState extends ConsumerState<InventoryPage> with SingleTicker
                 return AnimatedBuilder(
                     animation: _animController,
                     builder: (context, child) {
-                        return Column(
+                        return Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Color(0xFFFFE5B4), // Naranja crema
+                                Color(0xFFFFF5E6), // Crema suave
+                              ],
+                            ),
+                          ),
+                          child: Column(
                             children: [
                                 const SizedBox(height: 8),
                                 _CatalogHeaderBar(animation: _animController),
@@ -78,12 +89,35 @@ class _InventoryPageState extends ConsumerState<InventoryPage> with SingleTicker
                                     ),
                                 ),
                             ],
+                          ),
                         );
                     },
                 );
             },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, st) => Center(child: Text('Error al cargar inventario\n$e')),
+            loading: () => Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFFFE5B4), Color(0xFFFFF5E6)],
+                ),
+              ),
+              child: const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF6B35)),
+                ),
+              ),
+            ),
+            error: (e, st) => Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFFFE5B4), Color(0xFFFFF5E6)],
+                ),
+              ),
+              child: Center(child: Text('Error al cargar inventario\n$e')),
+            ),
         );
     }
 }
@@ -113,9 +147,16 @@ class _CatalogHeaderBar extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFF6A11CB), Color(0xFF2575FC)],
+                    colors: [Color(0xFFFF6B35), Color(0xFFFF8C42), Color(0xFFFFD700)], // Naranja a Dorado DBZ
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(16)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFFF6B35),
+                    blurRadius: 12,
+                    offset: Offset(0, 4),
+                  ),
+                ],
             ),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -185,14 +226,14 @@ class _FilterChips extends StatelessWidget {
                     _ChoicePill(
                         label: 'En Stock',
                         selected: filter == 'in_stock',
-                        color: const Color(0xFF2ECC71),
+                        color: const Color(0xFF10B981), // Verde Namek
                         onTap: () => onChanged('in_stock'),
                     ),
                     const SizedBox(width: 12),
                     _ChoicePill(
                         label: 'Próximamente',
                         selected: filter == 'upcoming',
-                        color: const Color(0xFFFF9F43),
+                        color: const Color(0xFFFFD700), // Dorado Super Saiyan
                         onTap: () => onChanged('upcoming'),
                     ),
                 ],
@@ -301,10 +342,10 @@ class _CatalogCard extends StatelessWidget {
                                                     ),
                                                 ),
                                             ),
-                                            _StatusPill(
-                                                label: inStock ? 'En Stock' : 'Próximamente',
-                                                color: inStock ? const Color(0xFF2ECC71) : const Color(0xFFFF9F43),
-                                            ),
+                            _StatusPill(
+                                label: inStock ? 'En Stock' : 'Próximamente',
+                                color: inStock ? const Color(0xFF10B981) : const Color(0xFFFFD700),
+                            ),
                                         ],
                                     ),
                                     const SizedBox(height: 6),
@@ -350,7 +391,7 @@ class _EmojiThumb extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFF8E2DE2), Color(0xFF4A00E0)],
+                    colors: [Color(0xFFFF6B35), Color(0xFFFF8C42)], // Naranja Dragon Ball
                 ),
             ),
             child: Center(

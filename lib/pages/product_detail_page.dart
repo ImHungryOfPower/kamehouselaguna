@@ -22,8 +22,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     Widget build(BuildContext context) {
         final inStock = widget.product.stock > 0;
         return Scaffold(
-            backgroundColor: const Color(0xFFF8F9FA),
-            body: SafeArea(
+            body: Container(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                            Color(0xFFFFE5B4), // Naranja crema
+                            Color(0xFFFFF5E6), // Crema suave
+                        ],
+                    ),
+                ),
+                child: SafeArea(
                 child: Column(
                     children: [
                         _buildHeader(context),
@@ -43,6 +53,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         _buildBottomBar(),
                     ],
                 ),
+                ),
             ),
         );
     }
@@ -56,7 +67,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFFFF6B35), Color(0xFF004E89)],
+                    colors: [Color(0xFFFF6B35), Color(0xFFFF8C42), Color(0xFFFFD700)], // Naranja a Dorado DBZ
                 ),
             ),
             child: Row(
@@ -118,7 +129,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                    colors: [Color(0xFFFF6B35), Color(0xFFFF8C42), Color(0xFFFFB347)], // Naranja Dragon Ball
                 ),
             ),
             child: Stack(
@@ -152,7 +163,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                                color: inStock ? const Color(0xFFFF4444) : const Color(0xFFFF9800),
+                                color: inStock ? const Color(0xFFEF4444) : const Color(0xFFFFD700), // Rojo Kaio-ken / Dorado
                                 borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
@@ -193,13 +204,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
-                            color: inStock ? const Color(0xFFE6FFFA) : const Color(0xFFFED7AA),
+                            color: inStock ? const Color(0xFFD1FAE5) : const Color(0xFFFEF3C7), // Verde/Amarillo pastel
                             borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                             inStock ? 'En Stock' : 'Próximamente',
                             style: TextStyle(
-                                color: inStock ? const Color(0xFF38A169) : const Color(0xFFC05621),
+                                color: inStock ? const Color(0xFF10B981) : const Color(0xFFFF8C42), // Verde Namek / Naranja
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                             ),

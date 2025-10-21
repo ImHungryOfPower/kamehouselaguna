@@ -39,7 +39,11 @@ class _NewsPageState extends ConsumerState<NewsPage> with SingleTickerProviderSt
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFFF8F9FA), Color(0xFFFFFFFF)],
+          colors: [
+            Color(0xFFFFE5B4), // Naranja crema
+            Color(0xFFFFF5E6), // Crema suave
+            Color(0xFFFFE5B4), // Naranja crema
+          ],
         ),
       ),
       child: asyncNews.when(

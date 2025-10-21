@@ -42,19 +42,40 @@ class _FacebookPageState extends State<FacebookPage> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
-      body: SafeArea(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFFFE5B4), // Naranja crema
+              Color(0xFFFFF5E6), // Crema suave
+            ],
+          ),
+        ),
+        child: SafeArea(
         child: Column(
           children: [
-            // Header with Facebook gradient
+            // Header con estilo DBZ
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color(0xFF4267B2), Color(0xFF365899)],
+                  colors: [
+                    Color(0xFFFF6B35), // Naranja DBZ
+                    Color(0xFFFF8C42),
+                    Color(0xFFFFD700), // Dorado
+                  ],
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFFF6B35),
+                    blurRadius: 12,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,6 +159,7 @@ class _FacebookPageState extends State<FacebookPage> with SingleTickerProviderSt
               ),
             ),
           ],
+        ),
         ),
       ),
     );
